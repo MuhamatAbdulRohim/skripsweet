@@ -57,7 +57,7 @@ public abstract class scraper {
         ResultSet rs = CON.getResult("select id from website where site_link = '" + site_url + "';");
         rs.next();
         String id = rs.getString(1);
-        String query = "insert into news values(null," + id + ",'" + data[0] + "','" + data[1] + "','" + data[2] + "','" + data[3] + "','" + data[0] + "','" + data[5] + "', CURRENT_TIMESTAMP);";
+        String query = "insert into news values(null," + id + ",'" + data[0] + "','" + data[1] + "','" + data[2] + "','" + data[3] + "','" + data[4] + "','" + data[5] + "', CURRENT_TIMESTAMP);";
         try {
             this.CON.executeQuery(query);
             return true;
@@ -80,9 +80,7 @@ public abstract class scraper {
         ArrayList<String> tagValues = new ArrayList<>();
         Matcher matcherArticle = pattern.matcher(str);
         while (matcherArticle.find()) {
-            if (!matcherArticle.group(1).contains("https://m.detik.com/news/detiktv/")) {
-                tagValues.add(matcherArticle.group(1));
-            }
+            tagValues.add(matcherArticle.group(1));
         }
         return tagValues;
     }
